@@ -1,0 +1,10 @@
+[cred]
+id = 
+hash = 
+phone = 
+
+[db]
+host = localhost
+database = dashboard_telegram
+user = root
+password = root
