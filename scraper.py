@@ -14,8 +14,8 @@ re="\033[1;31m"
 gr="\033[1;32m"
 cy="\033[1;36m"
 
-def banner():
-    print(f"""
+# def banner():
+print(f"""
 {re}╔╦╗{cy}┌─┐┬  ┌─┐{re}╔═╗  ╔═╗{cy}┌─┐┬─┐┌─┐┌─┐┌─┐┬─┐
 {re} ║ {cy}├┤ │  ├┤ {re}║ ╦  ╚═╗{cy}│  ├┬┘├─┤├─┘├┤ ├┬┘
 {re} ╩ {cy}└─┘┴─┘└─┘{re}╚═╝  ╚═╝{cy}└─┘┴└─┴ ┴┴  └─┘┴└─
@@ -55,7 +55,7 @@ try:
     password = cpass['db']['password']
 except KeyError:
     os.system('clear')
-    banner()
+    # banner()
     print(re+"[!] run python3 setup.py first !!\n")
     sys.exit(1)
 
@@ -63,11 +63,11 @@ client.connect()
 if not client.is_user_authorized():
     client.send_code_request(phone)
     os.system('clear')
-    banner()
+    # banner()
     client.sign_in(phone, input(gr+'[+] Enter the code: '+re))
  
 os.system('clear')
-banner()
+# banner()
 chats = []
 last_date = None
 chunk_size = 200
@@ -115,13 +115,13 @@ for chat in chats:
         if record[0] == 0:
             cursor.execute("insert into chat (id, type, title) values (%s, %s, %s)", [chat.id, 'custom', chat.title])
 
-        cursor.execute("select max(id) from message where chat_id=%s;", [chat.id])
+        cursor.execute("select max(message_id) from message where chat_id=%s;", [chat.id])
         maxId = cursor.fetchone()[0]
         
         if maxId == None:
             maxId = 0
 
-        for message in client.iter_messages(chat, max_id=maxId):
+        for message in client.iter_messages(chat, min_id=maxId):
             cursor.execute("select count(*) as count from message where message_id=%s;", [message.id])
             record = cursor.fetchone()
             if record[0] == 0:
