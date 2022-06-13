@@ -6,23 +6,7 @@
 
 ## • How To Install and Use
 
-* Install requierments
-
-`$ python3 setup.py -i`
-
-* setup configration file ( apiID, apiHASH )
-
-`$ python3 setup.py -c`
-
-* To Genrate User Data
-
 `$ python3 scraper.py`
 
-* Update Tool
-
-`$ python3 setup.py -u`
-
-* Conect mysql
-
-`$ pip install mysql-connector-python`
+`$ python3 -m pip install mysql-connector-python`
 
